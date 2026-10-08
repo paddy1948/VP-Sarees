@@ -1,0 +1,374 @@
+<div class="vp-filter-bar">
+
+    <button
+        class="vp-filter-bar__open"
+        type="button"
+        aria-expanded="false"
+        aria-controls="vp-filter-modal"
+    >
+        <span class="vp-filter-bar__label">
+            Filter
+        </span>
+
+        <span
+            class="vp-filter-bar__icon"
+            aria-hidden="true"
+        >
+            <span class="vp-filter-line">
+                <span class="vp-filter-knob"></span>
+            </span>
+
+            <span class="vp-filter-line">
+                <span class="vp-filter-knob"></span>
+            </span>
+
+            <span class="vp-filter-line">
+                <span class="vp-filter-knob"></span>
+            </span>
+        </span>
+    </button>
+
+
+    <!-- FILTER MODAL -->
+
+    <div
+        class="vp-filter-modal"
+        id="vp-filter-modal"
+        aria-hidden="true"
+    >
+
+        <div class="vp-filter-modal__backdrop"></div>
+
+
+        <div
+            class="vp-filter-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter sarees"
+        >
+
+            <div class="vp-filter-panel__header">
+
+                <h2>Filters</h2>
+
+                <button
+                    class="vp-filter-panel__close"
+                    type="button"
+                    aria-label="Close filters"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="vp-filter-panel__body">
+
+                <nav class="vp-filter-categories">
+
+                    <button
+                        class="vp-filter-category is-active"
+                        type="button"
+                        data-filter-section="price"
+                    >
+                        Price
+                    </button>
+
+                    <button
+                        class="vp-filter-category"
+                        type="button"
+                        data-filter-section="featured"
+                    >
+                        Featured
+                    </button>
+
+                    <button
+                        class="vp-filter-category"
+                        type="button"
+                        data-filter-section="material"
+                    >
+                        Material
+                    </button>
+
+                    <button
+                        class="vp-filter-category"
+                        type="button"
+                        data-filter-section="color"
+                    >
+                        Color
+                    </button>
+
+                    <button
+                        class="vp-filter-category"
+                        type="button"
+                        data-filter-section="collection"
+                    >
+                        Collection
+                    </button>
+
+                    <button
+                        class="vp-filter-category"
+                        type="button"
+                        data-filter-section="pattern"
+                    >
+                        Pattern
+                    </button>
+
+                </nav>
+
+
+                <div class="vp-filter-content">
+
+                    <section
+                        class="vp-filter-section is-active"
+                        data-filter-content="price"
+                    >
+
+                        <h3>Price</h3>
+
+                        <p>Select price range</p>
+
+                        <div class="vp-filter-price">
+
+                            <input
+                                type="number"
+                                min="0"
+                                placeholder="₹ 1000"
+                                data-filter-price-min
+                            >
+
+                            <span>—</span>
+
+                            <input
+                                type="number"
+                                min="0"
+                                placeholder="₹ 12000"
+                                data-filter-price-max
+                            >
+
+                        </div>
+
+                    </section>
+
+
+                    <section
+                        class="vp-filter-section"
+                        data-filter-content="featured"
+                    >
+
+                        <h3>Featured</h3>
+
+                        <label class="vp-filter-option">
+
+                            <input
+                                type="checkbox"
+                                data-filter-featured
+                            >
+
+                            <span>Featured Sarees</span>
+
+                        </label>
+
+                    </section>
+
+
+                    <section
+                        class="vp-filter-section"
+                        data-filter-content="material"
+                    >
+
+                        <h3>Material</h3>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Silk"
+                                data-filter-fabric
+                            >
+                            <span>Silk</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Silk Blend"
+                                data-filter-fabric
+                            >
+                            <span>Silk Blend</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Cotton"
+                                data-filter-fabric
+                            >
+                            <span>Cotton</span>
+                        </label>
+
+                    </section>
+
+
+                    <section
+                        class="vp-filter-section"
+                        data-filter-content="color"
+                    >
+
+                        <h3>Color</h3>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Red"
+                                data-filter-color
+                            >
+                            <span>Red</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Royal Blue"
+                                data-filter-color
+                            >
+                            <span>Royal Blue</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Cream"
+                                data-filter-color
+                            >
+                            <span>Cream</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Ivory"
+                                data-filter-color
+                            >
+                            <span>Ivory</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Traditional"
+                                data-filter-color
+                            >
+                            <span>Traditional</span>
+                        </label>
+
+                    </section>
+
+
+                    <section
+                        class="vp-filter-section"
+                        data-filter-content="collection"
+                    >
+
+                        <h3>Collection</h3>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                data-filter-new
+                            >
+                            <span>New Arrivals</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                data-filter-featured
+                            >
+                            <span>Featured</span>
+                        </label>
+
+                    </section>
+
+
+                    <section
+                        class="vp-filter-section"
+                        data-filter-content="pattern"
+                    >
+
+                        <h3>Pattern</h3>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Traditional"
+                                data-filter-pattern
+                            >
+                            <span>Traditional</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Elegant"
+                                data-filter-pattern
+                            >
+                            <span>Elegant</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Classic"
+                                data-filter-pattern
+                            >
+                            <span>Classic</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Kerala Classic"
+                                data-filter-pattern
+                            >
+                            <span>Kerala Classic</span>
+                        </label>
+
+                        <label class="vp-filter-option">
+                            <input
+                                type="checkbox"
+                                value="Heritage"
+                                data-filter-pattern
+                            >
+                            <span>Heritage</span>
+                        </label>
+
+                    </section>
+
+                </div>
+
+            </div>
+
+
+            <div class="vp-filter-panel__actions">
+
+                <button
+                    class="vp-filter-panel__reset"
+                    type="button"
+                >
+                    Reset
+                </button>
+
+                <button
+                    class="vp-filter-panel__search"
+                    type="button"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

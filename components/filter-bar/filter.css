@@ -1,0 +1,927 @@
+/* ============================================
+   VP SAREES — FILTER BAR
+   ============================================ */
+
+
+/* ============================================
+   FILTER BAR
+   LEFT ALIGNED
+   ============================================ */
+
+.vp-filter-bar {
+    width: 100%;
+    min-height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 0 24px;
+
+    background: #ffffff;
+    border-bottom: 1px solid var(--vp-border);
+}
+
+
+/* ============================================
+   FILTER OPEN BUTTON
+   ============================================ */
+
+.vp-filter-bar__open {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 8px;
+
+    min-height: 40px;
+
+    padding: 8px 0;
+
+    color: var(--vp-text);
+
+    font-family: var(--vp-font-family);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    touch-action: manipulation;
+
+    user-select: none;
+
+    transition:
+        opacity 180ms ease;
+}
+
+
+.vp-filter-bar__open:hover {
+    opacity: 0.55;
+}
+
+
+.vp-filter-bar__open:focus {
+    outline: none;
+}
+
+
+.vp-filter-bar__open:focus-visible {
+    outline:
+        2px solid #111111;
+
+    outline-offset: 4px;
+}
+
+
+/* ============================================
+   FILTER TEXT
+   ============================================ */
+
+.vp-filter-bar__label {
+    display: inline-flex;
+
+    align-items: center;
+
+    white-space: nowrap;
+}
+
+
+/* ============================================
+   FILTER SLIDER ICON
+   ============================================ */
+
+.vp-filter-bar__icon {
+    width: 22px;
+    height: 17px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    flex-shrink: 0;
+}
+
+
+/* ============================================
+   INDIVIDUAL HORIZONTAL LINE
+   ============================================ */
+
+.vp-filter-line {
+    position: relative;
+
+    width: 22px;
+    height: 1.5px;
+
+    flex-shrink: 0;
+
+    background: #111111;
+
+    border-radius: 999px;
+}
+
+
+/* ============================================
+   CIRCULAR KNOB
+   ============================================ */
+
+.vp-filter-knob {
+    position: absolute;
+
+    top: 50%;
+
+    width: 6px;
+    height: 6px;
+
+    background: #ffffff;
+
+    border:
+        1.5px solid #111111;
+
+    border-radius: 50%;
+
+    transform:
+        translateY(-50%);
+}
+
+
+/* ============================================
+   DIFFERENT KNOB POSITIONS
+   ============================================ */
+
+.vp-filter-line:nth-child(1)
+.vp-filter-knob {
+    left: 5px;
+}
+
+
+.vp-filter-line:nth-child(2)
+.vp-filter-knob {
+    left: 13px;
+}
+
+
+.vp-filter-line:nth-child(3)
+.vp-filter-knob {
+    left: 8px;
+}
+
+
+/* ============================================
+   FILTER MODAL
+   HIDDEN BY DEFAULT
+   ============================================ */
+
+.vp-filter-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+}
+
+
+/* ============================================
+   OPEN STATE
+   ============================================ */
+
+.vp-filter-modal.is-open {
+    display: flex;
+}
+
+
+/* ============================================
+   DARK BACKDROP
+   ============================================ */
+
+.vp-filter-modal__backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0, 0, 0, 0.35);
+
+    backdrop-filter:
+        blur(2px);
+
+    -webkit-backdrop-filter:
+        blur(2px);
+
+    cursor: pointer;
+}
+
+
+/* ============================================
+   FILTER PANEL
+   ============================================ */
+
+.vp-filter-panel {
+    position: relative;
+
+    z-index: 2;
+
+    width:
+        min(760px, 100%);
+
+    max-height:
+        min(
+            680px,
+            calc(100vh - 48px)
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border:
+        1px solid #e6e6e6;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+/* ============================================
+   PANEL HEADER
+   ============================================ */
+
+.vp-filter-panel__header {
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 64px;
+
+    padding: 0 22px;
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+
+.vp-filter-panel__header h2 {
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+
+/* ============================================
+   CLOSE BUTTON
+   ============================================ */
+
+.vp-filter-panel__close {
+    width: 40px;
+    height: 40px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #111111;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    transition:
+        background 160ms ease,
+        opacity 160ms ease;
+}
+
+
+.vp-filter-panel__close:hover {
+    background: #f4f4f4;
+}
+
+
+.vp-filter-panel__close:focus {
+    outline: none;
+}
+
+
+.vp-filter-panel__close:focus-visible {
+    outline:
+        2px solid #111111;
+
+    outline-offset: 2px;
+}
+
+
+/* ============================================
+   MAIN TWO-COLUMN AREA
+   ============================================ */
+
+.vp-filter-panel__body {
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        190px
+        minmax(0, 1fr);
+
+    overflow: hidden;
+}
+
+
+/* ============================================
+   LEFT CATEGORY COLUMN
+   ============================================ */
+
+.vp-filter-categories {
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 10px 0;
+
+    background: #fafafa;
+
+    border-right:
+        1px solid #eeeeee;
+}
+
+
+/* ============================================
+   CATEGORY BUTTON
+   ============================================ */
+
+.vp-filter-category {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    padding: 0 18px;
+
+    color: #555555;
+
+    background: transparent;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    touch-action: manipulation;
+
+    transition:
+        background 160ms ease,
+        color 160ms ease;
+}
+
+
+.vp-filter-category:hover {
+    background: #f1f1f1;
+}
+
+
+.vp-filter-category.is-active {
+    color: #111111;
+
+    background: #ffffff;
+
+    font-weight: 600;
+}
+
+
+.vp-filter-category.is-active::after {
+    content: "";
+
+    position: absolute;
+
+    top: 10px;
+    bottom: 10px;
+
+    right: 0;
+
+    width: 2px;
+
+    background: #111111;
+}
+
+
+.vp-filter-category:focus {
+    outline: none;
+}
+
+
+.vp-filter-category:focus-visible {
+    outline:
+        2px solid #111111;
+
+    outline-offset: -2px;
+}
+
+
+/* ============================================
+   RIGHT CONTENT AREA
+   ============================================ */
+
+.vp-filter-content {
+    min-width: 0;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 28px;
+}
+
+
+/* ============================================
+   FILTER SECTIONS
+   ============================================ */
+
+.vp-filter-section {
+    display: none;
+}
+
+
+.vp-filter-section.is-active {
+    display: block;
+}
+
+
+.vp-filter-section h3 {
+    margin:
+        0 0 8px;
+
+    color: #111111;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+.vp-filter-section > p {
+    margin:
+        0 0 24px;
+
+    color: #777777;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================
+   PRICE
+   ============================================ */
+
+.vp-filter-price {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+
+.vp-filter-price input {
+    width: 140px;
+
+    height: 42px;
+
+    padding:
+        0 12px;
+
+    color: #111111;
+
+    background: #ffffff;
+
+    border:
+        1px solid #d8d8d8;
+
+    border-radius: 8px;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+
+.vp-filter-price input:focus {
+    border-color: #111111;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(0, 0, 0, 0.06);
+}
+
+
+.vp-filter-price span {
+    color: #777777;
+
+    font-size: 14px;
+}
+
+
+/* ============================================
+   CHECKBOX OPTIONS
+   ============================================ */
+
+.vp-filter-option {
+    min-height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    color: #333333;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+
+.vp-filter-option
++ .vp-filter-option {
+    margin-top: 4px;
+}
+
+
+.vp-filter-option input {
+    width: 17px;
+
+    height: 17px;
+
+    margin: 0;
+
+    accent-color: #111111;
+
+    cursor: pointer;
+}
+
+
+.vp-filter-option span {
+    line-height: 1.4;
+}
+
+
+/* ============================================
+   BOTTOM ACTIONS
+   ============================================ */
+
+.vp-filter-panel__actions {
+    flex: 0 0 auto;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        16px 22px;
+
+    background: #ffffff;
+
+    border-top:
+        1px solid #eeeeee;
+}
+
+
+/* ============================================
+   RESET + SEARCH
+   ============================================ */
+
+.vp-filter-panel__reset,
+.vp-filter-panel__search {
+    min-width: 110px;
+
+    height: 42px;
+
+    padding:
+        0 18px;
+
+    border-radius: 8px;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    touch-action: manipulation;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        opacity 160ms ease;
+}
+
+
+.vp-filter-panel__reset {
+    color: #111111;
+
+    background: #ffffff;
+
+    border:
+        1px solid #d8d8d8;
+}
+
+
+.vp-filter-panel__reset:hover {
+    background: #f5f5f5;
+}
+
+
+.vp-filter-panel__search {
+    color: #ffffff;
+
+    background: #111111;
+
+    border:
+        1px solid #111111;
+}
+
+
+.vp-filter-panel__search:hover {
+    opacity: 0.8;
+}
+
+
+.vp-filter-panel__reset:focus,
+.vp-filter-panel__search:focus {
+    outline: none;
+}
+
+
+.vp-filter-panel__reset:focus-visible,
+.vp-filter-panel__search:focus-visible {
+    outline:
+        2px solid #111111;
+
+    outline-offset: 2px;
+}
+
+
+/* ============================================
+   MOBILE
+   ============================================ */
+
+@media (max-width: 600px) {
+
+    .vp-filter-bar {
+        min-height: 54px;
+
+        padding:
+            0 16px;
+    }
+
+
+    .vp-filter-bar__open {
+        font-size: 14px;
+
+        min-height: 40px;
+    }
+
+
+    .vp-filter-bar__icon {
+        width: 22px;
+        height: 17px;
+    }
+
+
+    .vp-filter-line {
+        width: 22px;
+    }
+
+
+    .vp-filter-modal {
+        align-items: flex-end;
+
+        padding: 0;
+    }
+
+
+    .vp-filter-panel {
+        width: 100%;
+
+        max-height: 88vh;
+
+        border-radius:
+            18px 18px 0 0;
+
+        border-left: 0;
+
+        border-right: 0;
+
+        border-bottom: 0;
+
+        box-shadow:
+            0 -10px 40px
+            rgba(0, 0, 0, 0.16);
+    }
+
+
+    .vp-filter-panel__header {
+        min-height: 60px;
+
+        padding:
+            0 16px;
+    }
+
+
+    .vp-filter-panel__header h2 {
+        font-size: 17px;
+    }
+
+
+    .vp-filter-panel__body {
+        grid-template-columns:
+            120px
+            minmax(0, 1fr);
+    }
+
+
+    .vp-filter-categories {
+        padding: 6px 0;
+    }
+
+
+    .vp-filter-category {
+        min-height: 50px;
+
+        padding:
+            0 14px;
+
+        font-size: 13px;
+    }
+
+
+    .vp-filter-content {
+        padding:
+            22px 18px;
+    }
+
+
+    .vp-filter-price {
+        flex-wrap: wrap;
+    }
+
+
+    .vp-filter-price input {
+        width:
+            calc(50% - 5px);
+    }
+
+
+    .vp-filter-panel__actions {
+        padding:
+            12px 16px;
+
+        gap: 8px;
+    }
+
+
+    .vp-filter-panel__reset,
+    .vp-filter-panel__search {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+}
+
+
+/* ============================================
+   VERY SMALL PHONES
+   ============================================ */
+
+@media (max-width: 360px) {
+
+    .vp-filter-panel__body {
+        grid-template-columns:
+            105px
+            minmax(0, 1fr);
+    }
+
+
+    .vp-filter-category {
+        padding:
+            0 11px;
+
+        font-size: 12px;
+    }
+
+
+    .vp-filter-content {
+        padding:
+            20px 14px;
+    }
+
+}

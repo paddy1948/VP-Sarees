@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VP Sarees</title>
+
+
+    <!-- =========================================
+         GLOBAL CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+
+    <!-- =========================================
+         HEADER CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/header/header.css?v=customer-cart-2"
+    >
+
+
+    <!-- =========================================
+         3D VIEWER CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/3d-viewer/viewer.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="components/pose-selector/pose-selector.css"
+    >
+
+
+    <!-- =========================================
+         SAREE SELECTOR CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/saree-selector/selector.css"
+    >
+
+
+    <!-- =========================================
+         FILTER BAR CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/filter-bar/filter.css?v=3"
+    >
+
+
+    <!-- =========================================
+         PRODUCT CARDS CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/product-card/product-card.css?v=cart2"
+    >
+
+
+    <!-- =========================================
+         CART CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/cart/cart.css?v=customer-cart-2"
+    >
+
+
+    <!-- =========================================
+         THREE.JS
+         ========================================= -->
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three":
+                "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+
+            "three/addons/":
+                "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+
+
+    <!-- =========================================
+         PAGE LAYOUT
+         ========================================= -->
+
+    <style>
+
+        html,
+        body {
+
+            width: 100%;
+
+            min-height: 100%;
+
+            margin: 0;
+
+            padding: 0;
+
+            background: #ffffff;
+        }
+
+
+        #app {
+
+            width: 100%;
+
+            min-height: 100vh;
+        }
+
+
+        #main-content {
+
+            position: relative;
+
+            width: 100%;
+
+            min-height: 0;
+
+            overflow: visible;
+        }
+
+
+        #site-viewer {
+
+            width: 100%;
+        }
+
+
+        #site-saree-selector {
+
+            width: 100%;
+        }
+
+
+        #site-filter-bar {
+
+            width: 100%;
+        }
+
+
+        #site-products {
+
+            width: 100%;
+        }
+
+
+        #site-cart {
+
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         APP
+         ========================================= -->
+
+    <div id="app">
+
+
+        <!-- =====================================
+             HEADER
+             ===================================== -->
+
+        <div id="site-header"></div>
+
+
+        <!-- =====================================
+             MAIN CONTENT
+             ===================================== -->
+
+        <main id="main-content">
+
+
+            <!-- =================================
+                 3D VIEWER
+                 ================================= -->
+
+            <div id="site-viewer"></div>
+
+
+            <!-- =================================
+                 SAREE SELECTOR
+                 ================================= -->
+
+            <div id="site-saree-selector"></div>
+
+
+            <!-- =================================
+                 FILTER / SORT BAR
+                 ================================= -->
+
+            <div id="site-filter-bar"></div>
+
+
+            <!-- =================================
+                 PRODUCT CARDS
+                 ================================= -->
+
+            <div id="site-products"></div>
+
+
+        </main>
+
+
+        <!-- =====================================
+             CART
+             ===================================== -->
+
+        <div id="site-cart"></div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         APPLICATION
+         ========================================= -->
+
+    <script type="module">
+
+
+        // ========================================
+        // IMPORT HEADER
+        // ========================================
+
+        import VPHeader
+            from "./components/header/header.js";
+
+
+        // ========================================
+        // IMPORT 3D VIEWER
+        // ========================================
+
+        import VPViewer
+            from "./components/3d-viewer/viewer.js";
+
+
+        // ========================================
+        // IMPORT SAREE SELECTOR
+        // ========================================
+
+        import VPSareeSelector
+            from "./components/saree-selector/selector.js";
+
+
+        // ========================================
+        // IMPORT FILTER BAR
+        // ========================================
+
+        import VPFilterBar
+            from "./components/filter-bar/filter.js?v=3";
+
+
+        // ========================================
+        // IMPORT POSE SELECTOR
+        // ========================================
+
+        import VPPoseSelector
+            from "./components/pose-selector/pose-selector.js";
+
+
+        // ========================================
+        // IMPORT PRODUCT CARDS
+        // ========================================
+
+        import VPProductCards
+            from "./components/product-card/product-card.js";
+
+
+        // ========================================
+        // IMPORT CART
+        // ========================================
+
+        import VPCart
+            from "./components/cart/cart.js";
+
+
+        // ========================================
+        // LOAD HEADER
+        // ========================================
+
+        async function loadHeader() {
+
+            const response =
+                await fetch(
+                    "./components/header/header.html?v=customer-cart-2",
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load header.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const headerContainer =
+                document.getElementById(
+                    "site-header"
+                );
+
+
+            headerContainer.innerHTML =
+                html;
+
+
+            VPHeader.init();
+
+        }
+
+
+        // ========================================
+        // LOAD 3D VIEWER
+        // ========================================
+
+        async function loadViewer() {
+
+            const response =
+                await fetch(
+                    "./components/3d-viewer/viewer.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load viewer.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const viewerContainer =
+                document.getElementById(
+                    "site-viewer"
+                );
+
+
+            viewerContainer.innerHTML =
+                html;
+
+
+            const viewerRoot =
+                viewerContainer.querySelector(
+                    ".vp-viewer"
+                );
+
+
+            if (!viewerRoot) {
+
+                throw new Error(
+                    "VP Viewer root element not found."
+                );
+
+            }
+
+
+            VPViewer.init(
+                viewerRoot
+            );
+
+        }
+
+
+        // ========================================
+        // LOAD POSE SELECTOR
+        // ========================================
+
+        async function loadPoseSelector() {
+
+            const response =
+                await fetch(
+                    "./components/pose-selector/pose-selector.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load pose-selector.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const viewerRoot =
+                document.querySelector(
+                    ".vp-viewer"
+                );
+
+
+            if (!viewerRoot) {
+
+                throw new Error(
+                    "VP Viewer root not found."
+                );
+
+            }
+
+
+            const mount =
+                viewerRoot.querySelector(
+                    ".vp-pose-selector-mount"
+                );
+
+
+            if (!mount) {
+
+                throw new Error(
+                    "VP Pose Selector mount not found."
+                );
+
+            }
+
+
+            mount.innerHTML =
+                html;
+
+
+            const poseRoot =
+                mount.querySelector(
+                    ".vp-pose-selector"
+                );
+
+
+            if (!poseRoot) {
+
+                throw new Error(
+                    "VP Pose Selector root not found."
+                );
+
+            }
+
+
+            VPPoseSelector.init(
+                poseRoot
+            );
+
+        }
+
+
+        // ========================================
+        // LOAD SAREE SELECTOR
+        // ========================================
+
+        async function loadSareeSelector() {
+
+            const response =
+                await fetch(
+                    "./components/saree-selector/selector.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load selector.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const selectorContainer =
+                document.getElementById(
+                    "site-saree-selector"
+                );
+
+
+            selectorContainer.innerHTML =
+                html;
+
+
+            const selectorRoot =
+                selectorContainer.querySelector(
+                    ".vp-saree-selector"
+                );
+
+
+            if (!selectorRoot) {
+
+                throw new Error(
+                    "VP Saree Selector root element not found."
+                );
+
+            }
+
+
+            VPSareeSelector.init(
+                selectorRoot
+            );
+
+        }
+
+
+        // ========================================
+        // LOAD FILTER BAR
+        // ========================================
+
+        async function loadFilterBar() {
+
+            const response =
+                await fetch(
+                    "./components/filter-bar/filter.html?v=3"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load filter.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const filterContainer =
+                document.getElementById(
+                    "site-filter-bar"
+                );
+
+
+            filterContainer.innerHTML =
+                html;
+
+
+            const filterRoot =
+                filterContainer.querySelector(
+                    ".vp-filter-bar"
+                );
+
+
+            if (!filterRoot) {
+
+                throw new Error(
+                    "VP Filter Bar root element not found."
+                );
+
+            }
+
+
+            VPFilterBar.init(
+                filterRoot
+            );
+
+        }
+
+
+        // ========================================
+        // LOAD PRODUCT CARDS
+        // ========================================
+
+        async function loadProducts() {
+
+            const response =
+                await fetch(
+                    "./components/product-card/product-card.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load product-card.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const productsContainer =
+                document.getElementById(
+                    "site-products"
+                );
+
+
+            productsContainer.innerHTML =
+                html;
+
+
+            const productsRoot =
+                productsContainer.querySelector(
+                    ".vp-products"
+                );
+
+
+            if (!productsRoot) {
+
+                throw new Error(
+                    "VP Products root element not found."
+                );
+
+            }
+
+
+            VPProductCards.init(
+                productsRoot
+            );
+
+        }
+
+
+        // ========================================
+        // LOAD CART
+        // ========================================
+
+        async function loadCart() {
+
+            const response =
+                await fetch(
+                    "./components/cart/cart.html?v=customer-cart-2",
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load cart.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const cartContainer =
+                document.getElementById(
+                    "site-cart"
+                );
+
+
+            cartContainer.innerHTML =
+                html;
+
+
+            const cartRoot =
+                cartContainer.querySelector(
+                    ".vp-cart"
+                );
+
+
+            if (!cartRoot) {
+
+                throw new Error(
+                    "VP Cart root element not found."
+                );
+
+            }
+
+
+            VPCart.init(
+                cartRoot
+            );
+
+        }
+
+
+        // ========================================
+        // INITIALIZE WEBSITE
+        // ========================================
+
+        async function initSite() {
+
+            try {
+
+
+                // Header
+
+                await loadHeader();
+
+
+                // 3D viewer
+
+                await loadViewer();
+
+
+                // Pose selector
+
+                await loadPoseSelector();
+
+
+                // Saree selector
+
+                await loadSareeSelector();
+
+
+                // Filter / Sort bar
+
+                await loadFilterBar();
+
+
+                // Product cards
+
+                await loadProducts();
+
+
+                // Cart
+
+                await loadCart();
+
+
+                console.log(
+                    "================================"
+                );
+
+
+                console.log(
+                    "VP SAREES SITE INITIALIZED"
+                );
+
+
+                console.log(
+                    "================================"
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "VP SAREES SITE ERROR:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // ========================================
+        // START WEBSITE
+        // ========================================
+
+        initSite();
+
+
+    </script>
+
+
+</body>
+
+</html>

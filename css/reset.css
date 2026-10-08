@@ -1,0 +1,105 @@
+/* =========================================
+   VP SAREES — RESET
+   ========================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+    min-height: 100vh;
+}
+
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+button {
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
+
+img,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================
+   CLEAN TOUCH INTERACTION
+   ========================================= */
+
+button,
+a,
+[role="button"] {
+
+    -webkit-tap-highlight-color:
+        rgba(0, 0, 0, 0) !important;
+
+    tap-highlight-color:
+        transparent !important;
+
+    -webkit-touch-callout: none;
+
+    user-select: none;
+}
+
+
+/* =========================================
+   REMOVE TOUCH FOCUS ARTIFACT
+   ========================================= */
+
+button:focus,
+a:focus,
+[role="button"]:focus {
+
+    outline: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================
+   KEEP KEYBOARD ACCESSIBILITY
+   ========================================= */
+
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+
+    outline:
+        2px solid #111111;
+
+    outline-offset: 3px;
+}

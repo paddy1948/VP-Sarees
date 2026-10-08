@@ -1,0 +1,779 @@
+const VPHeader = {
+
+    init() {
+
+        const header =
+            document.querySelector(
+                ".vp-header"
+            );
+
+
+        const menuButton =
+            document.querySelector(
+                ".vp-header__menu"
+            );
+
+
+        const cartButton =
+            document.querySelector(
+                ".vp-header__cart"
+            );
+
+
+        const logoText =
+            document.querySelector(
+                ".vp-header__logo-text"
+            );
+
+
+        /*
+        ============================================
+        MENU
+        ============================================
+        */
+
+        if (menuButton) {
+
+            menuButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        menuButton.getAttribute(
+                            "aria-expanded"
+                        ) === "true";
+
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        String(!isOpen)
+                    );
+
+
+                    console.log(
+                        `VP Sarees menu ${
+                            !isOpen
+                                ? "opened"
+                                : "closed"
+                        }`
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        CUSTOMER CART
+        ============================================
+        */
+
+        if (cartButton) {
+
+            cartButton.addEventListener(
+                "click",
+                () => {
+
+                    document.dispatchEvent(
+                        new CustomEvent(
+                            "vp:cart:open"
+                        )
+                    );
+
+
+                    cartButton.classList.remove(
+                        "is-bouncing"
+                    );
+
+
+                    void cartButton.offsetWidth;
+
+
+                    cartButton.classList.add(
+                        "is-bouncing"
+                    );
+
+                }
+            );
+
+
+            document.addEventListener(
+                "vp:cart:opened",
+                () => {
+
+                    cartButton.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+            );
+
+
+            document.addEventListener(
+                "vp:cart:closed",
+                () => {
+
+                    cartButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        SEARCH
+        ============================================
+        */
+
+        const searchButton =
+            document.querySelector(
+                ".vp-header__search"
+            );
+
+
+        const searchPanel =
+            document.querySelector(
+                ".vp-header__search-panel"
+            );
+
+
+        const searchInput =
+            document.querySelector(
+                ".vp-header__search-input"
+            );
+
+
+        const searchClose =
+            document.querySelector(
+                ".vp-header__search-close"
+            );
+
+
+        /*
+        ============================================
+        SEARCH PERFORMANCE STATE
+
+        The visual animation is NOT changed.
+
+        We only make sure that multiple input
+        events cannot repeatedly trigger the
+        search engine inside the same browser
+        rendering cycle.
+        ============================================
+        */
+
+        let searchFrame =
+            null;
+
+
+        let lastDispatchedQuery =
+            null;
+
+
+        /*
+        ============================================
+        OPEN SEARCH
+        ============================================
+        */
+
+        function openSearch() {
+
+            if (!searchPanel) {
+                return;
+            }
+
+
+            /*
+            ----------------------------------------
+            IMPORTANT
+
+            This class controls the main header
+            exit animation.
+
+            It replaces the CSS :has() dependency
+            so the same animation works reliably
+            on desktop and mobile.
+            ----------------------------------------
+            */
+
+            if (header) {
+
+                header.classList.add(
+                    "is-search-open"
+                );
+
+            }
+
+
+            searchPanel.classList.add(
+                "is-open"
+            );
+
+
+            searchPanel.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
+            if (searchButton) {
+
+                searchButton.setAttribute(
+                    "aria-expanded",
+                    "true"
+                );
+
+            }
+
+
+            requestAnimationFrame(
+                () => {
+
+                    if (searchInput) {
+
+                        searchInput.focus();
+
+                        /*
+                        Select existing text so the
+                        customer can immediately
+                        replace the previous search.
+                        */
+
+                        searchInput.select();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        CLOSE SEARCH
+        ============================================
+        */
+
+        function closeSearch() {
+
+            if (!searchPanel) {
+                return;
+            }
+
+
+            /*
+            Cancel any search update that has
+            not reached the browser yet.
+            */
+
+            if (searchFrame !== null) {
+
+                cancelAnimationFrame(
+                    searchFrame
+                );
+
+                searchFrame =
+                    null;
+
+            }
+
+
+            /*
+            ----------------------------------------
+            IMPORTANT
+
+            Remove the header search state so the
+            original header can animate back in.
+            ----------------------------------------
+            */
+
+            if (header) {
+
+                header.classList.remove(
+                    "is-search-open"
+                );
+
+            }
+
+
+            searchPanel.classList.remove(
+                "is-open"
+            );
+
+
+            searchPanel.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            if (searchButton) {
+
+                searchButton.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+
+
+        /*
+        ============================================
+        DISPATCH SEARCH IMMEDIATELY
+        ============================================
+
+        This is the actual search dispatch.
+
+        It is kept separate from the input event
+        so normal typing can be synchronized with
+        the browser's rendering cycle.
+        ============================================
+        */
+
+        function dispatchSearchNow() {
+
+            if (!searchInput) {
+                return;
+            }
+
+
+            const query =
+                searchInput.value
+                    .trim();
+
+
+            /*
+            Do not send the exact same query again.
+
+            This prevents duplicate work when:
+            - Enter is pressed after typing
+            - keyboard/input events overlap
+            - mobile browsers fire extra input events
+            */
+
+            if (
+                query ===
+                lastDispatchedQuery
+            ) {
+                return;
+            }
+
+
+            lastDispatchedQuery =
+                query;
+
+
+            document.dispatchEvent(
+                new CustomEvent(
+                    "vp:search",
+                    {
+                        detail: {
+                            query
+                        }
+                    }
+                )
+            );
+
+        }
+
+
+        /*
+        ============================================
+        SCHEDULE SEARCH
+        ============================================
+
+        Instead of running the complete search
+        system directly inside the keyboard input
+        event, wait for the browser's next paint
+        cycle.
+
+        This keeps the visual blur animation and
+        WebGL rendering from fighting the keyboard
+        event itself.
+
+        IMPORTANT:
+
+        This does NOT add a visible debounce delay.
+
+        It normally runs on the next animation
+        frame.
+        ============================================
+        */
+
+        function scheduleSearch() {
+
+            if (!searchInput) {
+                return;
+            }
+
+
+            if (
+                searchFrame !== null
+            ) {
+
+                cancelAnimationFrame(
+                    searchFrame
+                );
+
+            }
+
+
+            searchFrame =
+                requestAnimationFrame(
+                    () => {
+
+                        searchFrame =
+                            null;
+
+
+                        dispatchSearchNow();
+
+                    }
+                );
+
+        }
+
+
+        /*
+        ============================================
+        FORCE SEARCH NOW
+        ============================================
+
+        Used for Enter and explicit actions where
+        we don't want to wait for another frame.
+        ============================================
+        */
+
+        function dispatchSearchImmediately() {
+
+            if (!searchInput) {
+                return;
+            }
+
+
+            if (
+                searchFrame !== null
+            ) {
+
+                cancelAnimationFrame(
+                    searchFrame
+                );
+
+
+                searchFrame =
+                    null;
+
+            }
+
+
+            dispatchSearchNow();
+
+        }
+
+
+        /*
+        ============================================
+        SEARCH BUTTON
+        ============================================
+        */
+
+        if (searchButton) {
+
+            searchButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+                    openSearch();
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        SEARCH INPUT
+        ============================================
+        */
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                "input",
+                () => {
+
+                    /*
+                    Live search.
+
+                    IMPORTANT:
+
+                    Do not execute the complete search
+                    system directly from the keyboard
+                    event.
+
+                    Schedule it for the browser's next
+                    animation frame instead.
+
+                    This preserves the exact visual
+                    animation while reducing competing
+                    main-thread work on mobile.
+                    */
+
+                    scheduleSearch();
+
+                }
+            );
+
+
+            searchInput.addEventListener(
+                "keydown",
+                (event) => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        /*
+                        Enter should immediately
+                        process the latest value.
+                        */
+
+                        dispatchSearchImmediately();
+
+                    }
+
+
+                    if (
+                        event.key === "Escape"
+                    ) {
+
+                        event.preventDefault();
+
+                        closeSearch();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        CLOSE BUTTON
+        ============================================
+        */
+
+        if (searchClose) {
+
+            searchClose.addEventListener(
+                "click",
+                () => {
+
+                    /*
+                    Clear the search first so
+                    the homepage comes back.
+                    */
+
+                    if (searchInput) {
+
+                        searchInput.value =
+                            "";
+
+                    }
+
+
+                    /*
+                    We deliberately dispatch this
+                    immediately.
+
+                    This means clearing the search
+                    through the X button starts the
+                    homepage restoration without
+                    waiting for another frame.
+                    */
+
+                    dispatchSearchImmediately();
+
+
+                    closeSearch();
+
+                }
+            );
+
+        }
+
+
+        /*
+        ============================================
+        ESCAPE
+        ============================================
+        */
+
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (
+                    event.key === "Escape" &&
+                    searchPanel &&
+                    searchPanel.classList.contains(
+                        "is-open"
+                    )
+                ) {
+
+                    closeSearch();
+
+                }
+
+            }
+        );
+
+
+        /*
+        ============================================
+        CLICK OUTSIDE
+        ============================================
+        */
+
+        document.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    !searchPanel ||
+                    !searchPanel.classList.contains(
+                        "is-open"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                const clickedInsideSearch =
+                    searchPanel.contains(
+                        event.target
+                    );
+
+
+                const clickedSearchButton =
+                    searchButton &&
+                    searchButton.contains(
+                        event.target
+                    );
+
+
+                if (
+                    !clickedInsideSearch &&
+                    !clickedSearchButton
+                ) {
+
+                    closeSearch();
+
+                }
+
+            }
+        );
+
+
+        /*
+        ============================================
+        VP SAREES TYPEWRITER
+        ============================================
+        */
+
+        if (!logoText) {
+
+            return;
+
+        }
+
+
+        const text =
+            "VP Sarees";
+
+
+        let currentIndex =
+            0;
+
+
+        /*
+        Start completely empty every time
+        the page is loaded/refreshed.
+        */
+
+        logoText.textContent =
+            "";
+
+
+        /*
+        ============================================
+        TYPEWRITER
+        ============================================
+        */
+
+        const typingSpeed =
+            100;
+
+
+        const typeNextCharacter =
+            () => {
+
+                if (
+                    currentIndex >=
+                    text.length
+                ) {
+
+                    return;
+
+                }
+
+
+                logoText.textContent +=
+                    text[currentIndex];
+
+
+                currentIndex++;
+
+
+                setTimeout(
+                    typeNextCharacter,
+                    typingSpeed
+                );
+
+            };
+
+
+        /*
+        ============================================
+        START
+        ============================================
+        */
+
+        typeNextCharacter();
+
+    }
+
+};
+
+
+export default VPHeader;

@@ -1,0 +1,231 @@
+<section
+    class="vp-cart"
+    aria-label="Customer shopping cart"
+    aria-hidden="true"
+>
+
+    <!-- =====================================
+         BACKDROP
+         ===================================== -->
+
+    <button
+        class="vp-cart__backdrop"
+        type="button"
+        data-cart-backdrop
+        aria-label="Close cart"
+        tabindex="-1"
+    ></button>
+
+
+    <!-- =====================================
+         CART DRAWER
+         ===================================== -->
+
+    <aside
+        class="vp-cart__panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vp-cart-title"
+    >
+
+        <!-- =================================
+             HEADER
+             ================================= -->
+
+        <header class="vp-cart__header">
+
+            <div class="vp-cart__heading">
+
+                <h2
+                    id="vp-cart-title"
+                    class="vp-cart__title"
+                >
+                    Your Cart
+                </h2>
+
+                <span
+                    class="vp-cart__count"
+                    data-cart-count
+                >
+                    0
+                </span>
+
+            </div>
+
+
+            <button
+                class="vp-cart__close"
+                type="button"
+                data-cart-close
+                aria-label="Close cart"
+            >
+
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </header>
+
+
+        <!-- =================================
+             CART BODY
+             ================================= -->
+
+        <div class="vp-cart__body">
+
+            <!-- CART ITEMS -->
+
+            <div
+                class="vp-cart__items"
+                data-cart-items
+            ></div>
+
+
+            <!-- =================================
+                 EMPTY STATE
+                 ================================= -->
+
+            <div
+                class="vp-cart__empty"
+                data-cart-empty
+                hidden
+            >
+
+                <div
+                    class="vp-cart__empty-icon"
+                    aria-hidden="true"
+                >
+
+                    <svg
+                        viewBox="0 0 32 32"
+                        width="42"
+                        height="42"
+                    >
+
+                        <path
+                            d="M11 11V9
+                               C11 5.8 13.2 4 16 4
+                               C18.8 4 21 5.8 21 9V11"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+
+                        <path
+                            d="M7 11
+                               H25
+                               L24 27
+                               H8
+                               Z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linejoin="round"
+                        />
+
+                    </svg>
+
+                </div>
+
+
+                <h3 class="vp-cart__empty-title">
+                    Your cart is empty
+                </h3>
+
+
+                <p class="vp-cart__empty-text">
+                    Add a saree to your cart and
+                    it will appear here.
+                </p>
+
+
+                <button
+                    type="button"
+                    class="vp-cart__collection"
+                    data-cart-collection
+                >
+                    Continue Shopping
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 SUMMARY
+                 ================================= -->
+
+            <div
+                class="vp-cart__summary"
+                data-cart-summary
+                hidden
+            >
+
+                <div class="vp-cart__summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span data-cart-subtotal>
+                        ₹0
+                    </span>
+
+                </div>
+
+
+                <div class="vp-cart__summary-row">
+
+                    <span>
+                        Delivery
+                    </span>
+
+                    <span>
+                        Calculated at checkout
+                    </span>
+
+                </div>
+
+
+                <div class="vp-cart__divider"></div>
+
+
+                <div
+                    class="
+                        vp-cart__summary-row
+                        vp-cart__summary-row--total
+                    "
+                >
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong data-cart-total>
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="vp-cart__checkout"
+                    data-cart-checkout
+                >
+                    Proceed to Checkout
+                </button>
+
+
+                <p class="vp-cart__secure">
+                    Secure checkout · Your cart is saved
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+</section>

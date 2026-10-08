@@ -1,0 +1,26 @@
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: var(--vp-white);
+    color: var(--vp-text);
+    font-family: var(--vp-font-family);
+    line-height: 1.5;
+}
+
+#app {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.vp-container {
+    width: min(
+        100% - (var(--vp-page-padding) * 2),
+        var(--vp-max-width)
+    );
+
+    margin-inline: auto;
+}

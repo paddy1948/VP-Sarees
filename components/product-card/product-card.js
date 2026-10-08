@@ -1,0 +1,1533 @@
+import {
+    VPProducts
+} from "../../js/products.js";
+
+
+const VPProductCards = {
+
+    init(container) {
+
+        if (!container) {
+            console.error(
+                "VP Product Cards: container not found."
+            );
+            return;
+        }
+
+
+        const productCards =
+            container.querySelectorAll(
+                ".vp-product-card"
+            );
+
+
+        if (!productCards.length) {
+            console.error(
+                "VP Product Cards: no products found."
+            );
+            return;
+        }
+
+
+        /* =========================================
+           PRODUCT DATA
+           ========================================= */
+
+        productCards.forEach(
+            (card, index) => {
+
+                const product =
+                    VPProducts[index];
+
+
+                if (!product) {
+                    console.warn(
+                        "VP Sarees: No product data for card:",
+                        index + 1
+                    );
+                    return;
+                }
+
+
+                /* PRODUCT IMAGE */
+
+                const image =
+                    card.querySelector(
+                        ".vp-product-card__image"
+                    );
+
+
+                if (image) {
+
+                    image.src =
+                        product.gallery[0];
+
+                    image.alt =
+                        product.name;
+
+                }
+
+
+                /* PRODUCT NAME */
+
+                const name =
+                    card.querySelector(
+                        ".vp-product-card__name"
+                    );
+
+
+                if (name) {
+
+                    name.textContent =
+                        product.name;
+
+                }
+
+
+                /* CURRENT PRICE */
+
+                const price =
+                    card.querySelector(
+                        ".vp-product-card__price"
+                    );
+
+
+                if (price) {
+
+                    price.textContent =
+                        `₹${product.price.toLocaleString("en-IN")}`;
+
+                }
+
+
+                /* OLD PRICE */
+
+                const oldPrice =
+                    card.querySelector(
+                        ".vp-product-card__old-price"
+                    );
+
+
+                if (oldPrice) {
+
+                    oldPrice.textContent =
+                        `₹${product.oldPrice.toLocaleString("en-IN")}`;
+
+                }
+
+
+                /* DISCOUNT */
+
+                const discount =
+                    card.querySelector(
+                        ".vp-product-card__discount"
+                    );
+
+
+                if (discount) {
+
+                    discount.textContent =
+                        `${product.discount}% OFF`;
+
+                }
+
+
+                /* =================================
+                   PRODUCT PAGE NAVIGATION
+                   ================================= */
+
+                const imageLink =
+                    card.querySelector(
+                        ".vp-product-card__image-link"
+                    );
+
+
+                if (imageLink) {
+
+                    imageLink.href =
+                        `product.html?id=${product.id}`;
+
+
+                    imageLink.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.preventDefault();
+
+
+                            sessionStorage.setItem(
+                                "vp-home-scroll",
+                                String(
+                                    window.scrollY
+                                )
+                            );
+
+
+                            window.location.href =
+                                `product.html?id=${product.id}`;
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================
+                   FAVORITE
+                   ================================= */
+
+                const favoriteButton =
+                    card.querySelector(
+                        ".vp-product-card__favorite"
+                    );
+
+
+                if (favoriteButton) {
+
+                    favoriteButton.setAttribute(
+                        "aria-label",
+                        `Add ${product.name} to favorites`
+                    );
+
+
+                    favoriteButton.setAttribute(
+                        "aria-pressed",
+                        "false"
+                    );
+
+
+                    favoriteButton.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.preventDefault();
+
+                            event.stopPropagation();
+
+
+                            const isActive =
+                                favoriteButton.classList.contains(
+                                    "is-active"
+                                );
+
+
+                            if (isActive) {
+
+                                favoriteButton.classList.remove(
+                                    "is-active"
+                                );
+
+
+                                favoriteButton.setAttribute(
+                                    "aria-pressed",
+                                    "false"
+                                );
+
+
+                                favoriteButton.textContent =
+                                    "♡";
+
+                            }
+                            else {
+
+                                favoriteButton.classList.add(
+                                    "is-active"
+                                );
+
+
+                                favoriteButton.setAttribute(
+                                    "aria-pressed",
+                                    "true"
+                                );
+
+
+                                favoriteButton.textContent =
+                                    "♥";
+
+                            }
+
+
+                            console.log(
+                                "VP Sarees favorite:",
+                                !isActive,
+                                product.id
+                            );
+
+                        }
+                    );
+
+                }
+
+
+                /* =================================
+                   ADD TO CART
+                   ================================= */
+
+                const addToCartButton =
+                    card.querySelector(
+                        "[data-add-to-cart]"
+                    );
+
+
+                if (addToCartButton) {
+
+                    addToCartButton.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.preventDefault();
+
+                            event.stopPropagation();
+
+
+                            window.dispatchEvent(
+                                new CustomEvent(
+                                    "vp:cart:add",
+                                    {
+                                        detail: {
+                                            product: {
+                                                ...product,
+                                                image:
+                                                    product.gallery?.[0] ||
+                                                    ""
+                                            }
+                                        }
+                                    }
+                                )
+                            );
+
+
+                            const originalHTML =
+                                addToCartButton.innerHTML;
+
+
+                            addToCartButton.innerHTML =
+                                `
+                                    <span>
+                                        Added to Cart
+                                    </span>
+                                `;
+
+
+                            addToCartButton.classList.add(
+                                "is-added"
+                            );
+
+
+                            window.setTimeout(
+                                () => {
+
+                                    addToCartButton.innerHTML =
+                                        originalHTML;
+
+
+                                    addToCartButton.classList.remove(
+                                        "is-added"
+                                    );
+
+                                },
+                                1200
+                            );
+
+
+                            console.log(
+                                "VP Sarees: Added to cart",
+                                product.id
+                            );
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           SEARCH SYSTEM
+           ========================================= */
+
+        const productsSection =
+            container;
+
+
+        /* =========================================
+           NO RESULTS MESSAGE
+           ========================================= */
+
+        const noResults =
+            document.createElement(
+                "div"
+            );
+
+
+        noResults.className =
+            "vp-products__no-results";
+
+
+        noResults.hidden =
+            true;
+
+
+        noResults.innerHTML =
+            `
+                <div class="vp-products__no-results-title">
+                    No sarees found
+                </div>
+
+                <div class="vp-products__no-results-text">
+                    Try searching for another saree.
+                </div>
+            `;
+
+
+        productsSection.appendChild(
+            noResults
+        );
+
+
+        /* =========================================
+           HOMEPAGE SECTIONS
+           ========================================= */
+
+        const viewer =
+            document.getElementById(
+                "site-viewer"
+            );
+
+
+        const sareeSelector =
+            document.getElementById(
+                "site-saree-selector"
+            );
+
+
+        const filterBar =
+            document.getElementById(
+                "site-filter-bar"
+            );
+
+
+        const searchSections = [
+            viewer,
+            sareeSelector,
+            filterBar
+        ].filter(Boolean);
+
+
+        /* =========================================
+           SEARCH STATE
+           ========================================= */
+
+        let searchMode =
+            false;
+
+
+        let searchAnimationToken =
+            0;
+
+
+        let searchHideTimer =
+            null;
+
+
+        let searchRestoreTimer =
+            null;
+
+
+        const SEARCH_EXIT_TIME =
+            280;
+
+
+        const SEARCH_RETURN_TIME =
+            420;
+
+
+        /* =========================================
+           BODY SEARCH STATE
+           ========================================= */
+
+        function setSearchBodyState(active) {
+
+            document.body.classList.toggle(
+                "vp-search-active",
+                active
+            );
+
+        }
+
+
+        /* =========================================
+           SEARCH RESULT SPACING
+
+           Header is fixed, so results need
+           enough space below it.
+           ========================================= */
+
+        function setSearchResultsSpacing(active) {
+
+            if (!active) {
+
+                productsSection.style.removeProperty(
+                    "padding-top"
+                );
+
+                return;
+            }
+
+
+            const padding =
+                window.innerWidth <= 600
+                    ? "82px"
+                    : "94px";
+
+
+            productsSection.style.setProperty(
+                "padding-top",
+                padding,
+                "important"
+            );
+
+        }
+
+
+        /* =========================================
+           HARD HIDE HOMEPAGE SECTION
+
+           This is the important fix.
+
+           We do NOT rely only on:
+               element.hidden = true
+
+           We also force:
+               display:none !important
+
+           So the 3D viewer, selector and
+           filter can never remain underneath
+           search results.
+           ========================================= */
+
+        function hardHideSection(section) {
+
+            if (!section) {
+                return;
+            }
+
+
+            section.hidden =
+                true;
+
+
+            section.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+
+            section.style.setProperty(
+                "display",
+                "none",
+                "important"
+            );
+
+
+            section.classList.remove(
+                "vp-search-section-exit",
+                "vp-search-section-hidden",
+                "vp-search-section-enter",
+                "vp-search-section-visible"
+            );
+
+        }
+
+
+        /* =========================================
+           SHOW HOMEPAGE SECTION
+           ========================================= */
+
+        function showSection(section) {
+
+            if (!section) {
+                return;
+            }
+
+
+            section.hidden =
+                false;
+
+
+            section.removeAttribute(
+                "aria-hidden"
+            );
+
+
+            section.style.removeProperty(
+                "display"
+            );
+
+
+            section.classList.remove(
+                "vp-search-section-hidden"
+            );
+
+
+            section.classList.add(
+                "vp-search-section-enter"
+            );
+
+        }
+
+
+        /* =========================================
+           PRODUCT CARD ANIMATION HELPERS
+           ========================================= */
+
+        function resetCardAnimation(card) {
+
+            card.classList.remove(
+                "vp-search-card-enter",
+                "vp-search-card-visible",
+                "vp-search-card-exit"
+            );
+
+        }
+
+
+        function prepareCardForEnter(card) {
+
+            card.hidden =
+                false;
+
+
+            card.style.removeProperty(
+                "display"
+            );
+
+
+            resetCardAnimation(
+                card
+            );
+
+
+            card.classList.add(
+                "vp-search-card-enter"
+            );
+
+        }
+
+
+        function animateCardIn(
+            card,
+            delay,
+            token
+        ) {
+
+            window.setTimeout(
+                () => {
+
+                    if (
+                        token !==
+                        searchAnimationToken
+                    ) {
+                        return;
+                    }
+
+
+                    card.classList.add(
+                        "vp-search-card-visible"
+                    );
+
+
+                    card.classList.remove(
+                        "vp-search-card-enter"
+                    );
+
+                },
+                delay
+            );
+
+        }
+
+
+        function prepareCardForExit(card) {
+
+            card.classList.remove(
+                "vp-search-card-enter",
+                "vp-search-card-visible"
+            );
+
+
+            card.classList.add(
+                "vp-search-card-exit"
+            );
+
+        }
+
+
+        function finishCardExit(card) {
+
+            card.hidden =
+                true;
+
+
+            card.style.setProperty(
+                "display",
+                "none",
+                "important"
+            );
+
+
+            resetCardAnimation(
+                card
+            );
+
+        }
+
+
+        function restoreCard(card) {
+
+            card.hidden =
+                false;
+
+
+            card.style.removeProperty(
+                "display"
+            );
+
+
+            resetCardAnimation(
+                card
+            );
+
+        }
+
+
+        /* =========================================
+           ENTER SEARCH MODE
+           ========================================= */
+
+        function enterSearchMode() {
+
+            if (searchMode) {
+                return;
+            }
+
+
+            searchMode =
+                true;
+
+
+            setSearchBodyState(
+                true
+            );
+
+
+            setSearchResultsSpacing(
+                true
+            );
+
+
+            /* Cancel old timers */
+
+            if (searchHideTimer) {
+
+                window.clearTimeout(
+                    searchHideTimer
+                );
+
+                searchHideTimer =
+                    null;
+
+            }
+
+
+            if (searchRestoreTimer) {
+
+                window.clearTimeout(
+                    searchRestoreTimer
+                );
+
+                searchRestoreTimer =
+                    null;
+
+            }
+
+
+            /* =====================================
+               START HOMEPAGE EXIT ANIMATION
+               ===================================== */
+
+            searchSections.forEach(
+                (section) => {
+
+                    section.classList.remove(
+                        "vp-search-section-hidden",
+                        "vp-search-section-enter",
+                        "vp-search-section-visible"
+                    );
+
+
+                    section.classList.add(
+                        "vp-search-section-exit"
+                    );
+
+                }
+            );
+
+
+            /* =====================================
+               HARD REMOVE HOMEPAGE
+
+               After the animation finishes,
+               completely remove the sections
+               from layout.
+               ===================================== */
+
+            searchHideTimer =
+                window.setTimeout(
+                    () => {
+
+                        if (!searchMode) {
+                            return;
+                        }
+
+
+                        searchSections.forEach(
+                            hardHideSection
+                        );
+
+
+                        searchHideTimer =
+                            null;
+
+                    },
+                    SEARCH_EXIT_TIME
+                );
+
+
+            /* =====================================
+               SHOW PRODUCTS AREA
+               ===================================== */
+
+            productsSection.hidden =
+                false;
+
+
+            productsSection.style.removeProperty(
+                "display"
+            );
+
+
+            productsSection.classList.add(
+                "vp-search-results-active"
+            );
+
+        }
+
+
+        /* =========================================
+           EXIT SEARCH MODE
+           
+           MOBILE PERFORMANCE OPTIMIZED RETURN
+
+           The visual animation is intentionally
+           unchanged:
+
+               blur
+               fade
+               slight scale
+               sharpen
+
+           The difference is that homepage sections
+           are restored in separate rendering frames
+           instead of forcing the browser to restore
+           everything and animate it simultaneously.
+           ========================================= */
+
+        function exitSearchMode() {
+
+            if (!searchMode) {
+
+                setSearchBodyState(
+                    false
+                );
+
+
+                setSearchResultsSpacing(
+                    false
+                );
+
+
+                return;
+
+            }
+
+
+            searchMode =
+                false;
+
+
+            /*
+            =========================================
+            FREEZE ISOLATION TEST
+
+            When the search becomes empty, restore
+            the homepage immediately.
+
+            IMPORTANT:
+            This intentionally removes the return
+            animation for this test.
+
+            The purpose is to determine whether the
+            5-second mobile freeze is caused by the
+            multi-phase search-return animation /
+            forced-layout sequence.
+
+            If the freeze disappears, we have
+            isolated the problem to that transition
+            pipeline.
+
+            If the freeze remains, the expensive
+            operation is the actual homepage DOM /
+            layout restoration itself.
+            =========================================
+            */
+
+
+            if (searchHideTimer) {
+
+                window.clearTimeout(
+                    searchHideTimer
+                );
+
+                searchHideTimer =
+                    null;
+
+            }
+
+
+            if (searchRestoreTimer) {
+
+                window.clearTimeout(
+                    searchRestoreTimer
+                );
+
+                searchRestoreTimer =
+                    null;
+
+            }
+
+
+            /*
+            -----------------------------------------
+            RESTORE PRODUCT CARDS
+            -----------------------------------------
+            */
+
+            /*
+            -----------------------------------------
+            TEST #5 — DO NOT RESTORE PRODUCT CARDS
+            -----------------------------------------
+
+            This is a diagnostic test.
+
+            The product cards remain in their current
+            search-result state so we can determine
+            whether restoring all product cards at
+            the same time is responsible for the
+            remaining mobile freeze.
+
+            The page will be refreshed after the test,
+            so this temporary state is intentional.
+            -----------------------------------------
+            */
+
+
+            /*
+            -----------------------------------------
+            RESTORE NO-RESULTS STATE
+            -----------------------------------------
+            */
+
+            noResults.hidden =
+                true;
+
+
+            noResults.classList.remove(
+                "vp-search-no-results-enter",
+                "vp-search-no-results-visible",
+                "vp-search-no-results-exit"
+            );
+
+
+            /*
+            -----------------------------------------
+            RESTORE PRODUCTS SECTION
+            -----------------------------------------
+            */
+
+            productsSection.classList.remove(
+                "vp-search-results-exiting",
+                "vp-search-results-active"
+            );
+
+
+            /*
+            -----------------------------------------
+            RESTORE HOMEPAGE SECTIONS
+            -----------------------------------------
+
+            Do not use showSection() here because
+            showSection() intentionally adds the
+            animated "enter" state.
+
+            For this diagnostic test we want the
+            homepage restored with ZERO transition.
+            -----------------------------------------
+            */
+
+            /*
+            -----------------------------------------
+            TEST #6 — RESTORE ONLY THE 3D VIEWER
+            -----------------------------------------
+
+            This isolates the homepage sections.
+
+            Product cards are still intentionally
+            NOT restored from Test #5.
+
+            The saree selector and filter bar are also
+            intentionally NOT restored.
+
+            Only #site-viewer is restored.
+
+            If the freeze remains, the viewer's
+            display:none -> visible restoration is
+            strongly implicated.
+
+            If the freeze disappears, the next test
+            will isolate the selector/filter sections.
+            -----------------------------------------
+            */
+
+            if (viewer) {
+
+                viewer.hidden =
+                    false;
+
+
+                viewer.removeAttribute(
+                    "aria-hidden"
+                );
+
+
+                viewer.style.removeProperty(
+                    "display"
+                );
+
+
+                viewer.style.removeProperty(
+                    "will-change"
+                );
+
+
+                viewer.classList.remove(
+                    "vp-search-section-hidden",
+                    "vp-search-section-exit",
+                    "vp-search-section-enter",
+                    "vp-search-section-visible"
+                );
+
+            }
+
+
+            /*
+            Keep the saree selector and filter bar
+            hidden for this diagnostic test.
+            */
+
+            [sareeSelector, filterBar].forEach(
+                (section) => {
+
+                    if (!section) {
+                        return;
+                    }
+
+
+                    section.hidden =
+                        true;
+
+
+                    section.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    section.style.setProperty(
+                        "display",
+                        "none",
+                        "important"
+                    );
+
+                }
+            );
+
+
+            /*
+            -----------------------------------------
+            RESTORE NORMAL SEARCH STATE
+            -----------------------------------------
+            */
+
+            setSearchResultsSpacing(
+                false
+            );
+
+
+            setSearchBodyState(
+                false
+            );
+
+
+            searchRestoreTimer =
+                null;
+
+        }
+
+
+        /* =========================================
+           PERFORM SEARCH
+           ========================================= */
+
+        function performSearch(query) {
+
+            const cleanQuery =
+                String(
+                    query || ""
+                )
+                    .trim()
+                    .toLowerCase();
+
+
+            /*
+            Every new search invalidates
+            old animation timers.
+            */
+
+            const currentToken =
+                ++searchAnimationToken;
+
+
+            /* =====================================
+               EMPTY SEARCH
+
+               Clear search = return home.
+               ===================================== */
+
+            if (!cleanQuery) {
+
+                exitSearchMode();
+
+                return;
+
+            }
+
+
+            /* =====================================
+               ENTER SEARCH MODE
+               ===================================== */
+
+            enterSearchMode();
+
+
+            /* =====================================
+               RESET OLD CARD ANIMATIONS
+               ===================================== */
+
+            productCards.forEach(
+                resetCardAnimation
+            );
+
+
+            noResults.hidden =
+                true;
+
+
+            noResults.classList.remove(
+                "vp-search-no-results-enter",
+                "vp-search-no-results-visible",
+                "vp-search-no-results-exit"
+            );
+
+
+            /* =====================================
+               FIND MATCHES
+               ===================================== */
+
+            let matchCount =
+                0;
+
+
+            const matchingCards =
+                [];
+
+
+            productCards.forEach(
+                (card, index) => {
+
+                    const product =
+                        VPProducts[index];
+
+
+                    if (!product) {
+
+                        prepareCardForExit(
+                            card
+                        );
+
+                        return;
+
+                    }
+
+
+                    const productName =
+                        String(
+                            product.name || ""
+                        )
+                            .toLowerCase();
+
+
+                    const matches =
+                        productName.includes(
+                            cleanQuery
+                        );
+
+
+                    if (matches) {
+
+                        prepareCardForEnter(
+                            card
+                        );
+
+
+                        matchingCards.push(
+                            card
+                        );
+
+
+                        matchCount++;
+
+                    }
+                    else {
+
+                        prepareCardForExit(
+                            card
+                        );
+
+                    }
+
+                }
+            );
+
+
+            /* =====================================
+               NO RESULTS
+               ===================================== */
+
+            if (
+                matchCount === 0
+            ) {
+
+                window.setTimeout(
+                    () => {
+
+                        if (
+                            currentToken !==
+                            searchAnimationToken
+                        ) {
+                            return;
+                        }
+
+
+                        productCards.forEach(
+                            finishCardExit
+                        );
+
+
+                        noResults.hidden =
+                            false;
+
+
+                        noResults.classList.remove(
+                            "vp-search-no-results-exit",
+                            "vp-search-no-results-visible"
+                        );
+
+
+                        /*
+                        Put the message into its
+                        initial blurred/hidden state.
+                        */
+
+                        noResults.classList.add(
+                            "vp-search-no-results-enter"
+                        );
+
+
+                        /*
+                        Give the browser one complete
+                        paint frame.
+
+                        This is important on mobile
+                        browsers because otherwise the
+                        browser can apply the final
+                        state immediately and skip
+                        the blur/scale transition.
+                        */
+
+                        requestAnimationFrame(
+                            () => {
+
+                                if (
+                                    currentToken !==
+                                    searchAnimationToken
+                                ) {
+                                    return;
+                                }
+
+
+                                /*
+                                Force layout so the
+                                initial animation state
+                                is actually committed.
+                                */
+
+                                void noResults.offsetWidth;
+
+
+                                /*
+                                Start the final state
+                                on the NEXT frame.
+                                */
+
+                                requestAnimationFrame(
+                                    () => {
+
+                                        if (
+                                            currentToken !==
+                                            searchAnimationToken
+                                        ) {
+                                            return;
+                                        }
+
+
+                                        noResults.classList.add(
+                                            "vp-search-no-results-visible"
+                                        );
+
+                                    }
+                                );
+
+                            }
+                        );
+
+                    },
+                    SEARCH_EXIT_TIME
+                );
+
+            }
+
+
+            /* =====================================
+               MATCHING RESULTS
+               ===================================== */
+
+            else {
+
+                matchingCards.forEach(
+                    (card, index) => {
+
+                        /*
+                        Small stagger between
+                        matching cards.
+                        */
+
+                        const delay =
+                            index * 65;
+
+
+                        animateCardIn(
+                            card,
+                            delay,
+                            currentToken
+                        );
+
+                    }
+                );
+
+
+                /* =================================
+                   REMOVE NON-MATCHING CARDS
+                   ================================= */
+
+                window.setTimeout(
+                    () => {
+
+                        if (
+                            currentToken !==
+                            searchAnimationToken
+                        ) {
+                            return;
+                        }
+
+
+                        productCards.forEach(
+                            (card) => {
+
+                                if (
+                                    !matchingCards.includes(
+                                        card
+                                    )
+                                ) {
+
+                                    finishCardExit(
+                                        card
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    },
+                    SEARCH_EXIT_TIME
+                );
+
+            }
+
+
+            /* =====================================
+               SEARCH RESULTS EVENT
+               ===================================== */
+
+            document.dispatchEvent(
+                new CustomEvent(
+                    "vp:search:results",
+                    {
+                        detail: {
+                            query:
+                                cleanQuery,
+
+                            count:
+                                matchCount
+                        }
+                    }
+                )
+            );
+
+
+            console.log(
+                "VP Sarees search:",
+                cleanQuery,
+                "matches:",
+                matchCount
+            );
+
+        }
+
+
+        /* =========================================
+           HEADER SEARCH EVENT
+           ========================================= */
+
+        document.addEventListener(
+            "vp:search",
+            (event) => {
+
+                const query =
+                    event.detail?.query ||
+                    "";
+
+
+                performSearch(
+                    query
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           KEEP SEARCH RESULTS RESPONSIVE
+           ========================================= */
+
+        window.addEventListener(
+            "resize",
+            () => {
+
+                if (!searchMode) {
+                    return;
+                }
+
+
+                setSearchResultsSpacing(
+                    true
+                );
+
+            }
+        );
+
+
+        /* =========================================
+           RESTORE HOMEPAGE SCROLL
+           ========================================= */
+
+        const savedScroll =
+            sessionStorage.getItem(
+                "vp-home-scroll"
+            );
+
+
+        if (
+            savedScroll !== null
+        ) {
+
+            const scrollPosition =
+                Number(
+                    savedScroll
+                );
+
+
+            sessionStorage.removeItem(
+                "vp-home-scroll"
+            );
+
+
+            requestAnimationFrame(
+                () => {
+
+                    window.scrollTo(
+                        0,
+                        scrollPosition
+                    );
+
+                }
+            );
+
+        }
+
+
+        console.log(
+            "VP Product Cards connected to shared data:",
+            productCards.length,
+            "products"
+        );
+
+    }
+
+};
+
+
+export default VPProductCards;

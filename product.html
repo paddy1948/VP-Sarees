@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>VP Sarees — Product</title>
+
+
+    <!-- =========================================
+         GLOBAL CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/reset.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/variables.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+
+    <!-- =========================================
+         HEADER CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/header/header.css"
+    >
+
+
+    <!-- =========================================
+         PRODUCT DETAILS CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/product-details/details.css"
+    >
+
+
+    <!-- =========================================
+         PRODUCT GALLERY CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="components/product-gallery/gallery.css"
+    >
+
+
+    <!-- =========================================
+         PAGE LAYOUT
+         ========================================= -->
+
+    <style>
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+        }
+
+
+        #app {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+
+        #main-content {
+            width: 100%;
+            min-height: 0;
+        }
+
+
+        #site-product-details {
+            width: 100%;
+        }
+
+
+        #site-product-gallery {
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         APP
+         ========================================= -->
+
+    <div id="app">
+
+
+        <!-- =====================================
+             HEADER
+             ===================================== -->
+
+        <div id="site-header"></div>
+
+
+        <!-- =====================================
+             MAIN CONTENT
+             ===================================== -->
+
+        <main id="main-content">
+
+
+            <!-- =================================
+                 PRODUCT DETAILS
+                 ================================= -->
+
+            <div id="site-product-details"></div>
+
+
+            <!-- =================================
+                 PRODUCT GALLERY
+                 ================================= -->
+
+            <div id="site-product-gallery"></div>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- =========================================
+         APPLICATION
+         ========================================= -->
+
+    <script type="module">
+
+
+        // ========================================
+        // IMPORT HEADER
+        // ========================================
+
+        import VPHeader
+            from "./components/header/header.js";
+
+
+        // ========================================
+        // IMPORT PRODUCT DETAILS
+        // ========================================
+
+        import VPProductDetails
+            from "./components/product-details/details.js";
+
+
+        // ========================================
+        // IMPORT PRODUCT GALLERY
+        // ========================================
+
+        import VPProductGallery
+            from "./components/product-gallery/gallery.js";
+
+
+        // ========================================
+        // LOAD HEADER
+        // ========================================
+
+        async function loadHeader() {
+
+            const response =
+                await fetch(
+                    "./components/header/header.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load header.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const headerContainer =
+                document.getElementById(
+                    "site-header"
+                );
+
+
+            headerContainer.innerHTML =
+                html;
+
+
+            VPHeader.init();
+
+        }
+
+
+        // ========================================
+        // LOAD PRODUCT DETAILS
+        // ========================================
+
+        async function loadProductDetails() {
+
+            const response =
+                await fetch(
+                    "./components/product-details/details.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load details.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const productContainer =
+                document.getElementById(
+                    "site-product-details"
+                );
+
+
+            productContainer.innerHTML =
+                html;
+
+
+            const productRoot =
+                productContainer.querySelector(
+                    ".vp-product-details"
+                );
+
+
+            if (!productRoot) {
+
+                throw new Error(
+                    "VP Product Details root not found."
+                );
+
+            }
+
+
+            VPProductDetails.init(
+                productRoot
+            );
+
+
+            return productRoot;
+
+        }
+
+
+        // ========================================
+        // LOAD PRODUCT GALLERY
+        // ========================================
+
+        async function loadProductGallery(
+            productRoot
+        ) {
+
+            const response =
+                await fetch(
+                    "./components/product-gallery/gallery.html"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load gallery.html"
+                );
+
+            }
+
+
+            const html =
+                await response.text();
+
+
+            const galleryContainer =
+                document.getElementById(
+                    "site-product-gallery"
+                );
+
+
+            galleryContainer.innerHTML =
+                html;
+
+
+            const galleryRoot =
+                galleryContainer.querySelector(
+                    ".vp-product-gallery"
+                );
+
+
+            if (!galleryRoot) {
+
+                throw new Error(
+                    "VP Product Gallery root not found."
+                );
+
+            }
+
+
+            // ------------------------------------
+            // Get existing product image
+            // ------------------------------------
+
+            const mainImage =
+                productRoot.querySelector(
+                    ".vp-product-details__image"
+                );
+
+
+            // ------------------------------------
+            // Get existing thumbnails
+            // ------------------------------------
+
+            const thumbnails =
+                productRoot.querySelectorAll(
+                    ".vp-product-details__thumbnail"
+                );
+
+
+            // ------------------------------------
+            // Build gallery image list
+            // from current thumbnails
+            // ------------------------------------
+
+            const images =
+                Array.from(
+                    thumbnails
+                ).map(
+                    (thumbnail) => {
+
+                        const img =
+                            thumbnail.querySelector(
+                                "img"
+                            );
+
+
+                        if (!img) {
+                            return "";
+                        }
+
+
+                        return img.src.replace(
+                            /w=\d+/,
+                            "w=1200"
+                        );
+
+                    }
+                ).filter(
+                    Boolean
+                );
+
+
+            // ------------------------------------
+            // Detect currently active thumbnail
+            // ------------------------------------
+
+            let activeIndex = 0;
+
+
+            thumbnails.forEach(
+                (thumbnail, index) => {
+
+                    if (
+                        thumbnail.classList.contains(
+                            "is-active"
+                        )
+                    ) {
+
+                        activeIndex =
+                            index;
+
+                    }
+
+                }
+            );
+
+
+            // ------------------------------------
+            // Initialize fullscreen gallery
+            // ------------------------------------
+
+            VPProductGallery.init({
+
+                lightbox:
+                    galleryRoot.querySelector(
+                        ".vp-gallery-lightbox"
+                    ),
+
+                imageElement:
+                    mainImage,
+
+                thumbnails:
+                    thumbnails,
+
+                images:
+                    images,
+
+                initialIndex:
+                    activeIndex
+
+            });
+
+        }
+
+
+        // ========================================
+        // INITIALIZE PRODUCT PAGE
+        // ========================================
+
+        async function initProductPage() {
+
+            try {
+
+                await loadHeader();
+
+
+                const productRoot =
+                    await loadProductDetails();
+
+
+                await loadProductGallery(
+                    productRoot
+                );
+
+
+                console.log(
+                    "================================"
+                );
+
+                console.log(
+                    "VP SAREES PRODUCT PAGE READY"
+                );
+
+                console.log(
+                    "PRODUCT GALLERY CONNECTED"
+                );
+
+                console.log(
+                    "================================"
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "VP SAREES PRODUCT PAGE ERROR:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // ========================================
+        // START WEBSITE
+        // ========================================
+
+        initProductPage();
+
+    </script>
+
+
+</body>
+
+</html>

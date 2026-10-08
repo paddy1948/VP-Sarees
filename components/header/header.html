@@ -1,0 +1,238 @@
+<header class="vp-header">
+
+    <!-- =========================================
+         MAIN HEADER
+         ========================================= -->
+
+    <div class="vp-header__main">
+
+        <div class="vp-header__inner">
+
+            <!-- =====================================
+                 CUSTOMER CART
+                 ===================================== -->
+
+            <div class="vp-header__left">
+
+                <button
+                    class="vp-header__cart"
+                    type="button"
+                    aria-label="Open customer cart"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        class="vp-header__cart-icon"
+                        viewBox="0 0 32 32"
+                        width="28"
+                        height="28"
+                        aria-hidden="true"
+                    >
+
+                        <!-- Bag handle -->
+                        <path
+                            d="M11 11V9
+                               C11 5.8 13.2 4 16 4
+                               C18.8 4 21 5.8 21 9V11"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+
+                        <!-- Bag body -->
+                        <path
+                            d="M7 11
+                               H25
+                               L24 27
+                               H8
+                               Z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linejoin="round"
+                        />
+
+                    </svg>
+
+
+                    <span
+                        class="vp-header__cart-count"
+                        data-header-cart-count
+                        aria-hidden="true"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================
+                 VP SAREES LOGO
+                 ===================================== -->
+
+            <a
+                href="/"
+                class="vp-header__logo"
+                aria-label="VP Sarees home"
+            >
+
+                <span
+                    class="vp-header__logo-text"
+                ></span>
+
+                <span
+                    class="vp-header__cursor"
+                    aria-hidden="true"
+                >|</span>
+
+            </a>
+
+
+            <!-- =====================================
+                 RIGHT ACTIONS
+                 ===================================== -->
+
+            <div class="vp-header__right">
+
+                <!-- SEARCH -->
+
+                <button
+                    class="vp-header__search"
+                    type="button"
+                    aria-label="Search sarees"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        class="vp-header__search-icon"
+                        viewBox="0 0 24 24"
+                        width="22"
+                        height="22"
+                        aria-hidden="true"
+                    >
+
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="6.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        />
+
+                        <path
+                            d="M16 16L21 21"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+
+                    </svg>
+
+                </button>
+
+
+                <!-- HAMBURGER -->
+
+                <button
+                    class="vp-header__menu"
+                    type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                >
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SEARCH HEADER
+         
+         IMPORTANT:
+         This lives inside the same header layer
+         as the main header.
+
+         It is NOT a dropdown underneath.
+         ========================================= -->
+
+    <div
+        class="vp-header__search-panel"
+        aria-hidden="true"
+    >
+
+        <div class="vp-header__search-inner">
+
+            <!-- SEARCH FIELD -->
+
+            <div class="vp-header__search-field">
+
+                <svg
+                    class="vp-header__search-field-icon"
+                    viewBox="0 0 24 24"
+                    width="21"
+                    height="21"
+                    aria-hidden="true"
+                >
+
+                    <circle
+                        cx="11"
+                        cy="11"
+                        r="6.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+
+                    <path
+                        d="M16 16L21 21"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    />
+
+                </svg>
+
+
+                <input
+                    class="vp-header__search-input"
+                    type="search"
+                    inputmode="search"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    placeholder="Search sarees"
+                    aria-label="Search sarees"
+                />
+
+            </div>
+
+
+            <!-- CLOSE -->
+
+            <button
+                class="vp-header__search-close"
+                type="button"
+                aria-label="Close search"
+            >
+                ×
+            </button>
+
+        </div>
+
+    </div>
+
+</header>

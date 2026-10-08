@@ -1,0 +1,1409 @@
+/* =========================================
+   PRODUCTS SECTION
+   ========================================= */
+
+.vp-products {
+    width: 100%;
+    padding: 18px 16px 40px;
+    background: #ffffff;
+}
+
+
+/* =========================================
+   PRODUCT GRID
+   ========================================= */
+
+.vp-products__grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 26px 12px;
+}
+
+
+/* =========================================
+   PRODUCT CARD
+   ========================================= */
+
+.vp-product-card {
+    min-width: 0;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   IMAGE WRAPPER
+   ========================================= */
+
+.vp-product-card__image-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #f5f5f5;
+
+    aspect-ratio: 3 / 4;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE LINK
+   ========================================= */
+
+.vp-product-card__image-link {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+   ========================================= */
+
+.vp-product-card__image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    transition:
+        transform 350ms ease;
+}
+
+
+.vp-product-card__image-link:hover
+.vp-product-card__image {
+    transform: scale(1.035);
+}
+
+
+/* =========================================
+   FAVORITE BUTTON
+   ========================================= */
+
+.vp-product-card__favorite {
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    color: #171717;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 23px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 2px 10px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 180ms ease,
+        background 180ms ease,
+        color 180ms ease;
+}
+
+
+@media (hover: hover) {
+
+    .vp-product-card__favorite:hover {
+        transform: scale(1.08);
+
+        background: #ffffff;
+    }
+
+}
+
+
+.vp-product-card__favorite.is-active {
+    color: #111111;
+}
+
+
+/* =========================================
+   DISCOUNT BADGE
+   ========================================= */
+
+.vp-product-card__discount {
+    position: absolute;
+
+    left: 10px;
+    bottom: 10px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 24px;
+
+    padding:
+        0 8px;
+
+    border-radius: 5px;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.02em;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   PRODUCT INFORMATION
+   ========================================= */
+
+.vp-product-card__content {
+    padding-top: 10px;
+}
+
+
+.vp-product-card__name {
+    margin: 0;
+
+    color: var(--vp-text);
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    line-height: 1.35;
+
+    letter-spacing: -0.01em;
+}
+
+
+/* =========================================
+   PRICING
+   ========================================= */
+
+.vp-product-card__pricing {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 5px;
+}
+
+
+.vp-product-card__price {
+    color: var(--vp-text);
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+
+.vp-product-card__old-price {
+    color: var(--vp-text-muted);
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.2;
+
+    text-decoration: line-through;
+}
+
+
+/* =========================================
+   ADD TO CART BUTTON
+   ========================================= */
+
+.vp-product-card__add-to-cart {
+    width: 100%;
+
+    min-height: 40px;
+
+    margin-top: 12px;
+
+    padding:
+        9px 14px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border: 1px solid #111111;
+
+    border-radius: 7px;
+
+    background: #111111;
+
+    color: #ffffff;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    letter-spacing: 0.01em;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    transform: translateZ(0);
+
+    transition:
+        background 220ms ease,
+        color 220ms ease,
+        border-color 220ms ease,
+        transform 140ms ease,
+        box-shadow 220ms ease,
+        gap 220ms ease;
+}
+
+
+/* =========================================
+   ADD TO CART TEXT
+   ========================================= */
+
+.vp-product-card__add-to-cart-text {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+
+    transform: translateY(0);
+
+    opacity: 1;
+
+    transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+}
+
+
+/* =========================================
+   CART ICON
+   ========================================= */
+
+.vp-product-card__cart-icon {
+    display: block;
+
+    width: 16px;
+    height: 16px;
+
+    flex: 0 0 16px;
+
+    opacity: 1;
+
+    transform:
+        translateX(0)
+        scale(1);
+
+    transition:
+        opacity 180ms ease,
+        transform 220ms ease,
+        width 220ms ease,
+        flex-basis 220ms ease;
+}
+
+
+/* =========================================
+   DESKTOP HOVER
+   Only real hover devices get this.
+   Prevents sticky white buttons on mobile.
+   ========================================= */
+
+@media (hover: hover) {
+
+    .vp-product-card__add-to-cart:hover {
+        background: #ffffff;
+
+        color: #111111;
+
+        box-shadow:
+            0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+}
+
+
+/* =========================================
+   CLICK / PRESS ANIMATION
+   ========================================= */
+
+.vp-product-card__add-to-cart:active,
+.vp-product-card__add-to-cart.is-adding {
+    transform:
+        scale(0.975);
+}
+
+
+/* =========================================
+   SUCCESS STATE
+   ========================================= */
+
+.vp-product-card__add-to-cart.is-added {
+    background: #111111;
+
+    color: #ffffff;
+
+    border-color: #111111;
+
+    gap: 0;
+
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.12);
+
+    animation:
+        vp-cart-success-pop 260ms ease;
+}
+
+
+/* Hide cart icon during "Added to Cart" */
+
+.vp-product-card__add-to-cart.is-added
+.vp-product-card__cart-icon {
+    width: 0;
+
+    flex-basis: 0;
+
+    opacity: 0;
+
+    transform:
+        translateX(-7px)
+        scale(0.65);
+}
+
+
+/* Success text */
+
+.vp-product-card__add-to-cart.is-added
+.vp-product-card__add-to-cart-text {
+    animation:
+        vp-cart-success-text 260ms ease;
+}
+
+
+/* =========================================
+   RETURNING STATE
+   ========================================= */
+
+.vp-product-card__add-to-cart.is-returning {
+    background: #111111;
+
+    color: #ffffff;
+
+    border-color: #111111;
+
+    gap: 7px;
+
+    animation:
+        vp-cart-return-pop 240ms ease;
+}
+
+
+/* Bring cart icon back */
+
+.vp-product-card__add-to-cart.is-returning
+.vp-product-card__cart-icon {
+    width: 16px;
+
+    flex-basis: 16px;
+
+    opacity: 1;
+
+    transform:
+        translateX(0)
+        scale(1);
+}
+
+
+/* Return text animation */
+
+.vp-product-card__add-to-cart.is-returning
+.vp-product-card__add-to-cart-text {
+    animation:
+        vp-cart-return-text 240ms ease;
+}
+
+
+/* =========================================
+   KEYFRAME ANIMATIONS
+   ========================================= */
+
+@keyframes vp-cart-success-pop {
+
+    0% {
+        transform: scale(0.975);
+    }
+
+    55% {
+        transform: scale(1.025);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes vp-cart-success-text {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(5px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+@keyframes vp-cart-return-pop {
+
+    0% {
+        transform: scale(0.985);
+    }
+
+    60% {
+        transform: scale(1.018);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes vp-cart-return-text {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(-4px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   FOCUS
+   ========================================= */
+
+.vp-product-card__add-to-cart:focus-visible {
+    outline: 2px solid #111111;
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .vp-product-card__add-to-cart,
+    .vp-product-card__add-to-cart-text,
+    .vp-product-card__cart-icon,
+    .vp-product-card__add-to-cart.is-added,
+    .vp-product-card__add-to-cart.is-returning {
+
+        animation: none;
+
+        transition: none;
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (min-width: 601px) {
+
+    .vp-products {
+        padding: 24px;
+    }
+
+    .vp-products__grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 30px 18px;
+    }
+
+    .vp-product-card__image-wrapper {
+        border-radius: 12px;
+    }
+
+    .vp-product-card__favorite {
+        top: 12px;
+        right: 12px;
+
+        width: 36px;
+        height: 36px;
+    }
+
+    .vp-product-card__discount {
+        left: 12px;
+        bottom: 12px;
+    }
+
+    .vp-product-card__content {
+        padding-top: 12px;
+    }
+
+    .vp-product-card__name {
+        font-size: 15px;
+    }
+
+    .vp-product-card__price {
+        font-size: 15px;
+    }
+
+    .vp-product-card__add-to-cart {
+        min-height: 42px;
+
+        margin-top: 13px;
+
+        font-size: 13px;
+
+        border-radius: 8px;
+    }
+
+}
+
+
+/* =========================================
+   DESKTOP
+   ========================================= */
+
+@media (min-width: 1000px) {
+
+    .vp-products {
+        width: min(
+            100% - 48px,
+            var(--vp-max-width)
+        );
+
+        margin-inline: auto;
+
+        padding: 32px 0 60px;
+    }
+
+    .vp-products__grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
+        gap: 40px 22px;
+    }
+
+    .vp-product-card__image-wrapper {
+        border-radius: 14px;
+    }
+
+    .vp-product-card__favorite {
+        width: 38px;
+        height: 38px;
+
+        font-size: 24px;
+    }
+
+    .vp-product-card__discount {
+        min-height: 26px;
+
+        padding-inline: 9px;
+
+        font-size: 11px;
+    }
+
+    .vp-product-card__name {
+        font-size: 15px;
+    }
+
+    .vp-product-card__price {
+        font-size: 15px;
+    }
+
+    .vp-product-card__add-to-cart {
+        min-height: 44px;
+
+        margin-top: 14px;
+
+        font-size: 13px;
+
+        border-radius: 8px;
+    }
+
+}
+
+
+/* =========================================
+   SEARCH — NO RESULTS
+   ========================================= */
+
+.vp-products__no-results {
+
+    width: 100%;
+
+    min-height: 45vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+
+.vp-products__no-results[hidden] {
+
+    display: none !important;
+}
+
+
+.vp-products__no-results-title {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.02em;
+}
+
+
+.vp-products__no-results-text {
+
+    margin-top: 8px;
+
+    color: #777777;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.5;
+}
+
+
+@media (max-width: 600px) {
+
+    .vp-products__no-results {
+
+        min-height: 50vh;
+
+        padding: 50px 20px;
+    }
+
+    .vp-products__no-results-title {
+
+        font-size: 20px;
+    }
+
+    .vp-products__no-results-text {
+
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================
+   VP SEARCH — APPLE STYLE FLUID TRANSITION
+   ========================================= */
+
+
+/* =========================================
+   SEARCH BODY STATE
+   ========================================= */
+
+body.vp-search-active {
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   HOMEPAGE SECTION EXIT
+   ========================================= */
+
+.vp-search-section-exit {
+
+    opacity: 0;
+
+    filter:
+        blur(12px);
+
+    transform:
+        translateY(-18px)
+        scale(0.985);
+
+    pointer-events: none;
+
+    transition:
+        opacity 280ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 280ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 320ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* =========================================
+   HOMEPAGE SECTION HIDDEN
+   ========================================= */
+
+.vp-search-section-hidden {
+
+    opacity: 0;
+
+    filter:
+        blur(14px);
+
+    transform:
+        translateY(-20px)
+        scale(0.985);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   HOMEPAGE SECTION RETURN
+   ========================================= */
+
+.vp-search-section-enter {
+
+    opacity: 0;
+
+    filter:
+        blur(14px);
+
+    transform:
+        translateY(18px)
+        scale(0.985);
+
+}
+
+
+.vp-search-section-visible {
+
+    opacity: 1;
+
+    filter:
+        blur(0);
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    transition:
+        opacity 420ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+/* =========================================
+   SEARCH RESULTS CONTAINER
+   ========================================= */
+
+.vp-search-results-active {
+
+    position: relative;
+
+    animation:
+        vp-search-results-arrive
+        420ms
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+.vp-search-results-exiting {
+
+    animation:
+        vp-search-results-leave
+        280ms
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+/* =========================================
+   SEARCH RESULT CARD — INITIAL STATE
+   ========================================= */
+
+.vp-product-card.vp-search-card-enter {
+
+    opacity: 0;
+
+    filter:
+        blur(14px);
+
+    transform:
+        translateY(22px)
+        scale(0.965);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   SEARCH RESULT CARD — VISIBLE STATE
+   ========================================= */
+
+.vp-product-card.vp-search-card-visible {
+
+    opacity: 1;
+
+    filter:
+        blur(0);
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    pointer-events: auto;
+
+    transition:
+        opacity 420ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+/* =========================================
+   SEARCH RESULT CARD — EXIT
+   ========================================= */
+
+.vp-product-card.vp-search-card-exit {
+
+    opacity: 0;
+
+    filter:
+        blur(10px);
+
+    transform:
+        translateY(-14px)
+        scale(0.975);
+
+    pointer-events: none;
+
+    transition:
+        opacity 260ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 260ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 280ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+/* =========================================
+   NO RESULTS — INITIAL
+   ========================================= */
+
+.vp-products__no-results.vp-search-no-results-enter {
+
+    opacity: 0;
+
+    filter:
+        blur(14px);
+
+    transform:
+        translateY(20px)
+        scale(0.97);
+
+}
+
+
+/* =========================================
+   NO RESULTS — VISIBLE
+   ========================================= */
+
+.vp-products__no-results.vp-search-no-results-visible {
+
+    opacity: 1;
+
+    filter:
+        blur(0);
+
+    transform:
+        translateY(0)
+        scale(1);
+
+    transition:
+        opacity 420ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+/* =========================================
+   NO RESULTS — EXIT
+   ========================================= */
+
+.vp-products__no-results.vp-search-no-results-exit {
+
+    opacity: 0;
+
+    filter:
+        blur(10px);
+
+    transform:
+        translateY(-12px)
+        scale(0.98);
+
+    transition:
+        opacity 260ms ease,
+        filter 260ms ease,
+        transform 260ms ease;
+
+}
+
+
+/* =========================================
+   SEARCH CONTAINER ARRIVAL
+   ========================================= */
+
+@keyframes vp-search-results-arrive {
+
+    0% {
+
+        opacity: 0;
+
+        filter:
+            blur(10px);
+
+        transform:
+            translateY(14px)
+            scale(0.992);
+
+    }
+
+    45% {
+
+        opacity: 0.72;
+
+        filter:
+            blur(4px);
+
+        transform:
+            translateY(4px)
+            scale(0.997);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        filter:
+            blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   SEARCH CONTAINER EXIT
+   ========================================= */
+
+@keyframes vp-search-results-leave {
+
+    0% {
+
+        opacity: 1;
+
+        filter:
+            blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+    100% {
+
+        opacity: 0;
+
+        filter:
+            blur(8px);
+
+        transform:
+            translateY(-10px)
+            scale(0.99);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE — SLIGHTLY STRONGER FLUID MOTION
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .vp-product-card.vp-search-card-enter {
+
+        filter:
+            blur(12px);
+
+        transform:
+            translateY(18px)
+            scale(0.96);
+
+    }
+
+
+    .vp-product-card.vp-search-card-visible {
+
+        filter:
+            blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+
+    .vp-product-card.vp-search-card-exit {
+
+        filter:
+            blur(9px);
+
+        transform:
+            translateY(-12px)
+            scale(0.97);
+
+    }
+
+
+    .vp-search-results-active {
+
+        animation-duration:
+            380ms;
+
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .vp-search-section-exit,
+    .vp-search-section-hidden,
+    .vp-search-section-enter,
+    .vp-search-section-visible,
+    .vp-search-results-active,
+    .vp-search-results-exiting,
+    .vp-product-card.vp-search-card-enter,
+    .vp-product-card.vp-search-card-visible,
+    .vp-product-card.vp-search-card-exit,
+    .vp-products__no-results.vp-search-no-results-enter,
+    .vp-products__no-results.vp-search-no-results-visible,
+    .vp-products__no-results.vp-search-no-results-exit {
+
+        animation: none !important;
+
+        transition: none !important;
+
+        filter: none !important;
+
+        transform: none !important;
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE NO-RESULTS — FLUID APPLE MOTION FIX
+   ========================================= */
+
+.vp-products__no-results.vp-search-no-results-enter {
+
+    opacity: 0;
+
+    filter:
+        blur(14px);
+
+    transform:
+        translateY(20px)
+        scale(0.97);
+
+    transition:
+        opacity 480ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        filter 520ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 520ms cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+
+}
+
+
+@media (max-width: 600px) {
+
+    .vp-products__no-results.vp-search-no-results-enter {
+
+        opacity: 0;
+
+        filter:
+            blur(18px);
+
+        transform:
+            translateY(24px)
+            scale(0.965);
+
+    }
+
+
+    .vp-products__no-results.vp-search-no-results-visible {
+
+        opacity: 1;
+
+        filter:
+            blur(0);
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE SEARCH RETURN TEST
+   Disable CSS blur ONLY on the 3D viewer.
+   Everything else keeps the existing animation.
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    #site-viewer.vp-search-section-exit,
+    #site-viewer.vp-search-section-enter,
+    #site-viewer.vp-search-section-visible {
+        filter: none !important;
+    }
+
+}

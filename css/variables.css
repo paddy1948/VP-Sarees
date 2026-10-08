@@ -1,0 +1,31 @@
+:root {
+    /* Brand */
+    --vp-brand: #111111;
+    --vp-text: #171717;
+    --vp-text-muted: #6b6b6b;
+
+    /* Backgrounds */
+    --vp-white: #ffffff;
+    --vp-surface: #f8f8f8;
+    --vp-border: #e8e8e8;
+
+    /* Layout */
+    --vp-max-width: 1440px;
+    --vp-page-padding: 24px;
+
+    /* Typography */
+    --vp-font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    /* Effects */
+    --vp-radius-sm: 8px;
+    --vp-radius-md: 12px;
+    --vp-radius-lg: 18px;
+
+    --vp-transition:
+        180ms ease;
+}

@@ -1,0 +1,444 @@
+/* =========================================
+   PRODUCT GALLERY
+   ========================================= */
+
+.vp-product-gallery {
+    position: relative;
+    width: 100%;
+}
+
+
+/* =========================================
+   FULLSCREEN VIEWER
+   ========================================= */
+
+.vp-gallery-lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.94);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 220ms ease,
+        visibility 220ms ease;
+}
+
+
+/* =========================================
+   OPEN STATE
+   ========================================= */
+
+.vp-gallery-lightbox.is-open {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================
+   CONTENT
+   ========================================= */
+
+.vp-gallery-lightbox__content {
+
+    position: relative;
+
+    width: min(
+        88vw,
+        1100px
+    );
+
+    height: min(
+        88vh,
+        900px
+    );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   FULLSCREEN IMAGE
+   ========================================= */
+
+.vp-gallery-lightbox__image {
+
+    display: block;
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    width: auto;
+
+    height: auto;
+
+    object-fit: contain;
+
+    opacity: 0;
+
+    transform: scale(0.985);
+
+    transition:
+        opacity 180ms ease,
+        transform 180ms ease;
+
+    user-select: none;
+
+    -webkit-user-drag: none;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+   ========================================= */
+
+.vp-gallery-lightbox__close {
+
+    position: absolute;
+
+    top: 22px;
+
+    right: 24px;
+
+    z-index: 3;
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.10
+    );
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.20
+    );
+
+    border-radius: 50%;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 28px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+.vp-gallery-lightbox__close:hover {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.18
+    );
+
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   PREVIOUS / NEXT
+   ========================================= */
+
+.vp-gallery-lightbox__previous,
+.vp-gallery-lightbox__next {
+
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 3;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    color: #ffffff;
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.10
+    );
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.18
+    );
+
+    border-radius: 50%;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 34px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 180ms ease,
+        transform 180ms ease;
+}
+
+
+.vp-gallery-lightbox__previous {
+
+    left: 24px;
+}
+
+
+.vp-gallery-lightbox__next {
+
+    right: 24px;
+}
+
+
+.vp-gallery-lightbox__previous:hover,
+.vp-gallery-lightbox__next:hover {
+
+    background: rgba(
+        255,
+        255,
+        255,
+        0.18
+    );
+}
+
+
+.vp-gallery-lightbox__previous:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(-2px);
+}
+
+
+.vp-gallery-lightbox__next:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(2px);
+}
+
+
+/* =========================================
+   IMAGE COUNTER
+   ========================================= */
+
+.vp-gallery-lightbox__counter {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 24px;
+
+    z-index: 3;
+
+    transform: translateX(-50%);
+
+    min-width: 52px;
+
+    padding: 7px 11px;
+
+    color: #ffffff;
+
+    background: rgba(
+        0,
+        0,
+        0,
+        0.45
+    );
+
+    border: 1px solid rgba(
+        255,
+        255,
+        255,
+        0.12
+    );
+
+    border-radius: 20px;
+
+    font-family:
+        var(--vp-font-family);
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .vp-gallery-lightbox {
+
+        background: rgba(
+            0,
+            0,
+            0,
+            0.96
+        );
+    }
+
+
+    .vp-gallery-lightbox__content {
+
+        width: 100vw;
+
+        height: 100vh;
+
+        height: 100dvh;
+    }
+
+
+    .vp-gallery-lightbox__image {
+
+        max-width: 92vw;
+
+        max-height: 82dvh;
+    }
+
+
+    .vp-gallery-lightbox__close {
+
+        top: 16px;
+
+        right: 16px;
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 25px;
+    }
+
+
+    .vp-gallery-lightbox__previous,
+    .vp-gallery-lightbox__next {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 29px;
+
+        background: rgba(
+            255,
+            255,
+            255,
+            0.08
+        );
+    }
+
+
+    .vp-gallery-lightbox__previous {
+
+        left: 12px;
+    }
+
+
+    .vp-gallery-lightbox__next {
+
+        right: 12px;
+    }
+
+
+    .vp-gallery-lightbox__counter {
+
+        bottom: 18px;
+
+        font-size: 11px;
+    }
+
+/* MOBILE TAP HIGHLIGHT FIX */
+
+@media (max-width: 600px) {
+
+    button,
+    a,
+    img,
+    .vp-product-details__image-wrapper,
+    .vp-product-details__thumbnail,
+    .vp-product-details__favorite {
+
+        -webkit-tap-highlight-color: transparent !important;
+
+        -webkit-touch-callout: none;
+
+        outline: none !important;
+
+    }
+
+}
+
+}
